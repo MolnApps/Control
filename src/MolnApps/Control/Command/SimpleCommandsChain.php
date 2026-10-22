@@ -15,7 +15,7 @@ class SimpleCommandsChain implements CommandsChain, Countable
 		$this->setCommandName($commandName);
 	}
 
-	public function count()
+	public function count() : int
 	{
 		return $this->getExecutedCommandsCount();
 	}
