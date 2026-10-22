@@ -14,12 +14,12 @@ class ResourcesFinder
 		$this->commandsMap = $commandsMap;
 	}
 
-	public function getViews(CommandsChain $commandsChain = null)
+	public function getViews(CommandsChain|null $commandsChain = null)
 	{
 		return $this->getResource($commandsChain, 'getViews');
 	}
 
-	public function getForward(CommandsChain $commandsChain = null)
+	public function getForward(CommandsChain|null $commandsChain = null)
 	{
 		return $this->getResource($commandsChain, 'getForward');
 	}

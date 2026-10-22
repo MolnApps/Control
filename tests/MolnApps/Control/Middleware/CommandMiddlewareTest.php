@@ -5,13 +5,15 @@ namespace MolnApps\Control\Middleware;
 use \MolnApps\Control\CommandsMap\CommandsMap;
 use \MolnApps\Control\CommandsMap\CommandStatuses;
 
-class CommandMiddlewareTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+
+class CommandMiddlewareTest extends TestCase
 {
 	private $commandsMap;
 	private $commandStatuses;
 	private $middleware;
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		$this->commandsMap = new CommandsMap;
 
@@ -46,7 +48,8 @@ class CommandMiddlewareTest extends \PHPUnit_Framework_TestCase
 	{
 		$commandMiddleware = new CommandMiddleware(new CommandsMap);
 		
-		$this->setExpectedException('\Exception', 'Unknown middleware [auth]');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Unknown middleware [auth]');
 		
 		$commandMiddleware->getMiddleware('auth');
 	}

@@ -2,7 +2,9 @@
 
 namespace MolnApps\Control\CommandsMap;
 
-class CommandStatusesTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+
+class CommandStatusesTest extends TestCase
 {
 	/** @test */
 	public function it_can_be_instantiated()
@@ -46,9 +48,8 @@ class CommandStatusesTest extends \PHPUnit_Framework_TestCase
 	/** @test */
 	public function it_throws_if_cannot_be_created()
 	{
-		$this->setExpectedException(
-			'\Exception', 'Command statuses must be either an array or a CommaStatuses object'
-		);
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Command statuses must be either an array or a CommaStatuses object');
 
 		$commandsMap = CommandStatuses::create('foobar');
 	}
@@ -76,7 +77,8 @@ class CommandStatusesTest extends \PHPUnit_Framework_TestCase
 			'CMD_ERROR' => -1
 		]);
 
-		$this->setExpectedException('\Exception', 'Undefined status [CMD_INVALID_REQUEST]');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Undefined status [CMD_INVALID_REQUEST]');
 
 		$commandsMap->getStatus('CMD_INVALID_REQUEST');
 	}

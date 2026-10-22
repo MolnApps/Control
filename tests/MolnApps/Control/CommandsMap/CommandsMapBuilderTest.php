@@ -2,7 +2,9 @@
 
 namespace MolnApps\Control\CommandsMap;
 
-class CommandsMapBuilderTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+
+class CommandsMapBuilderTest extends TestCase
 {
     private $commandStatuses = [
         'CMD_ERROR'           => -1,

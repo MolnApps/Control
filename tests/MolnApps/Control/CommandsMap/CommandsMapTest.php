@@ -2,7 +2,9 @@
 
 namespace MolnApps\Control\CommandsMap;
 
-class CommandsMapTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+
+class CommandsMapTest extends TestCase
 {
 	/** @test */
 	public function it_can_be_instantiated()
@@ -168,7 +170,8 @@ class CommandsMapTest extends \PHPUnit_Framework_TestCase
 	{
 		$commandsMap = new CommandsMap;
 
-		$this->setExpectedException('\Exception', 'Command SaveArticle is not defined');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Command SaveArticle is not defined');
 
 		$result = $commandsMap->resolveCommand('SaveArticle');
 	}
@@ -180,7 +183,8 @@ class CommandsMapTest extends \PHPUnit_Framework_TestCase
 
 		$commandsMap->addClassRoot('NewArticle', 'EditArticle');
 
-		$this->setExpectedException('\Exception', 'Command EditArticle is not defined');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Command EditArticle is not defined');
 
 		$result = $commandsMap->resolveCommand('NewArticle');
 	}

@@ -10,7 +10,7 @@ class CommandsMap
 	private $classrootMap = [];
 	private $middlewareMap = [];
 	
-	public function addCommand($command)
+	public function addCommand(string $command)
 	{
 		$this->commandMap[$command] = 1;
 	}
@@ -20,19 +20,19 @@ class CommandsMap
 		return $this->commandMap;
 	}
 	
-	public function verifyCommand($command)
+	public function verifyCommand(string $command)
 	{
 		return (isset($this->commandMap[$command]));
 	}
 	
-	public function addClassroot($command, $classroot)
+	public function addClassroot(string $command, string $classroot)
 	{
 		if ($classroot) {
 			$this->classrootMap[$command] = $classroot;
 		}
 	}
 	
-	public function getClassroot($command)
+	public function getClassroot(string $command)
 	{
 		if (isset($this->classrootMap[$command])) {
 			return $this->classrootMap[$command];
@@ -40,53 +40,53 @@ class CommandsMap
 		return $command;
 	}
 	
-	public function addView($command = 'default', $status = 0, $view)
+	public function addView(string $command, int $status, $view)
 	{
 		if ($view) {
 			$this->viewMap[$command][$status][] = $view;
 		}
 	}
 
-	public function setView($command, $status, $view)
+	public function setView(string $command, int $status, $view)
 	{
 		$this->viewMap[$command][$status] = [];
 		$this->addView($command, $status, $view);
 	}
 	
-	public function getViews($command, $status) 
+	public function getViews(string $command, int $status) 
 	{
 		if (isset($this->viewMap[$command][$status])) {
 			return $this->viewMap[$command][$status];
 		}
 	}
 	
-	public function addForward($command, $status = 0, $newCommand)
+	public function addForward(string $command, int $status, $newCommand)
 	{
 		if ($newCommand) {
 			$this->forwardMap[$command][$status] = $newCommand;
 		}
 	}
 
-	public function setForward($command, $status, $newCommand)
+	public function setForward(string $command, int $status, $newCommand)
 	{
 		return $this->addForward($command, $status, $newCommand);
 	}
 	
-	public function getForward($command, $status)
+	public function getForward(string $command, int $status)
 	{
 		if (isset($this->forwardMap[$command][$status])) {
 			return $this->forwardMap[$command][$status];
 		}
 	}
 
-	public function addMiddleware($command, $middleware)
+	public function addMiddleware(string $command, array|string $middleware)
 	{
 		foreach ((array)$middleware as $m) {
 			$this->middlewareMap[$command][] = $m;
 		}
 	}
 
-	public function getMiddleware($command)
+	public function getMiddleware(string $command)
 	{
 		if (isset($this->middlewareMap[$command])) {
 			return $this->middlewareMap[$command];
@@ -94,7 +94,7 @@ class CommandsMap
 		return [];
 	}
 
-	public function resolveCommand($command)
+	public function resolveCommand(string $command)
 	{
 		$command = $this->getClassroot($command);
 		

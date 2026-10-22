@@ -14,7 +14,7 @@ class MiddlewareController
 
 	private $commandName;
 
-	public function __construct(CommandsMap $commandsMap, CommandMiddleware $commandsMiddleware = null)
+	public function __construct(CommandsMap $commandsMap, CommandMiddleware|null $commandsMiddleware = null)
 	{
 		$this->commandsMap = $commandsMap;
 		$this->commandsMiddleware = $commandsMiddleware;

@@ -11,9 +11,11 @@ use \MolnApps\Control\Command\Command;
 use \MolnApps\Control\Middleware\Middleware;
 use \MolnApps\Control\Middleware\CommandMiddleware;
 
-class AppControllerTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+
+class AppControllerTest extends TestCase
 {
-	protected function setUp()
+	protected function setUp() : void
 	{
 		$this->commandStatuses = $this->createCommandStatuses();
 		$this->commandsMap = $this->createCommandsMap();
@@ -126,7 +128,8 @@ class AppControllerTest extends \PHPUnit_Framework_TestCase
 	{
 		$appController = new AppController($this->commandResolver, $this->middlewareController);
 		
-		$this->setExpectedException('\Exception', 'Command Foobar is not defined');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Command Foobar is not defined');
 		
 		$appController->executeCommandsChain('Foobar');
 	}

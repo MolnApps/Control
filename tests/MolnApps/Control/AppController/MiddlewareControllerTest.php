@@ -2,20 +2,22 @@
 
 namespace MolnApps\Control\AppController;
 
+use \PHPUnit\Framework\TestCase;
+
 use \MolnApps\Control\CommandsMap\CommandsMap;
 use \MolnApps\Control\CommandsMap\CommandStatuses;
 
 use \MolnApps\Control\Middleware\CommandMiddleware;
 use \MolnApps\Control\Middleware\Middleware;
 
-class MiddlewareControllerTest extends \PHPUnit_Framework_TestCase
+class MiddlewareControllerTest extends TestCase
 {
 	private $commandStatuses;
 	private $middleware;
 	private $commandsMap;
 	private $commandMiddleware;
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		$this->middleware = $this->createMock(Middleware::class);
 		
@@ -59,10 +61,8 @@ class MiddlewareControllerTest extends \PHPUnit_Framework_TestCase
 		
 		$middlewareController = new MiddlewareController($this->commandsMap);
 
-		$this->setExpectedException(
-			'\Exception', 
-			'The command [SaveArticle] has [auth] middleware but no CommandMiddleware has been passed'
-		);
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The command [SaveArticle] has [auth] middleware but no CommandMiddleware has been passed');
 		
 		$middlewareController->authorize('SaveArticle');
 	}
@@ -90,7 +90,8 @@ class MiddlewareControllerTest extends \PHPUnit_Framework_TestCase
 
 		$middlewareController = new MiddlewareController($this->commandsMap, $this->commandMiddleware);
 
-		$this->setExpectedException('\Exception', 'Unknown middleware [auth]');
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Unknown middleware [auth]');
 		
 		$middlewareController->authorize('SaveArticle');
 	}
